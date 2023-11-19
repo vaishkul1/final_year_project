@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Recognition Example</title>
+</head>
+<body>
+    <h1>Voice Input Example</h1>
+
+    <form id="signupForm" action="{{ url_for('signup') }}" method="post">
+      <div>
+          <label for="nameInput">Your Name:</label>
+          <input type="text" name="name" id="nameInput" placeholder="Your Name">
+          <button type="button" id="speakNameButton">Speak Your Name</button>
+      </div>
+  
+      <div>
+          <label for="numberInput">Your Mobile Number:</label>
+          <input type="text" name="phnumber" id="numberInput" placeholder="Your Mobile Number">
+          <button type="button" id="speakNumberButton">Speak Your number</button>
+      </div>
+  
+      <div>
+          <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+      </div>
+  </form>
+
+    <script src="static/script1.js"></script>
+</body>
+</html>
