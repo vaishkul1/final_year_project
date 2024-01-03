@@ -1,0 +1,20 @@
+button {
+    /* padding: 50%; */
+    height: 60px;
+    
+}
+
+.main-div {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+a {
+    display: block; 
+    width: 100%;
+}
+
+.btn-dark:hover {
+    background-color: #ffffff; /* Darker color on hover */
+    color: #000000;
+  }

@@ -48,7 +48,25 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => console.log(data))
             .catch(error => console.error('Error:', error));
     });
+
+    const logoutButton = document.getElementById('logoutButton');
+
+    // Function to speak the text content of an element
+    function speakElementText(element) {
+        const text = element.textContent;
+        const utterance = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(utterance);
+    }
+
+    // Add event listener for hover on the logout button
+    logoutButton.addEventListener('mouseenter', function () {
+        speakElementText(logoutButton);
+    });
+
+    // Add event listener for click on the logout button
+    logoutButton.addEventListener('click', function () {
+        // Redirect to the absolute path of the logout route
+        window.location.href = "/logout";
+    });
 });
 
-
-    

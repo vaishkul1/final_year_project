@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Word Hover Sound</title>
+    <title>Home Page</title>
 </head>
 <body>
-    <div class="division">
-        <button id="ask-me-button" class="hover-button ask-me">Ask me</button>
+    <div class="division1 d-grid">
+        <button id="ask-me-button" class="btn hover-button btn-info btn-block ask-me">Ask me</button>
         
     </div>
     
-    <div class="division">
-        <button id="get-battery" class="hover-button">Get Battery % </button>
+    <div class="division2 d-grid">
+        <button id="get-battery" class="btn hover-button btn-info btn-block ask-me">Get Battery percentage </button>
         <p id="battery-percentage"></p>
+    </div>
+
+    <div class="d-grid">
+        <a id="logoutButton" href="{{ url_for('logout') }}">
+            <button class="btn btn-dark btn-hover" style="width: 100%;" onmouseover="speakButtonText(this)">Logout</button>
+        </a>
+        
     </div>
     
     

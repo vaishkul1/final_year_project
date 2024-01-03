@@ -1,33 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
 </head>
+
 <body>
-    <div class="container">
-        <h1> Login</h1>
-        <hr>
-        <form method="POST" action="{{ url_for('login') }}">
-          
-          <div class="mb-3">
-            <label for="number" class="form-label"> phone number</label>
-            <input type="number" name="number" class="form-control" id="phnumber">
-          </div>
-          <div class="mb-3 form-check">
-            <label class="form-check-label" for="exampleCheck1">If not registered then <a href="/signup">Signup</a> </label>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
-  
-  
-      </div>
-  
-      
+    <h1>Login</h1>
+    <hr>
+    <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+        <!-- Add an element to display error messages -->
+        <div id="error-message">{{ error_message }}</div>
+        <div class="main-div">
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-info btn-block" id="speakNumberButton">Speak Your mobile number</button>
+            </div>
+            <div>
+                <input type="text" name="phnumber" id="numberInput" placeholder="Your Mobile Number">
+            </div>
+        </div>
+        <div class="main-div d-grid gap-2">
+            <button type="button" class="btn btn-primary" onclick="validateAndSubmit()" onmouseover="speakButtonText(this)">Submit</button>
+        </div>
+        <a id="signupButton" href="{{ url_for('signup') }}">
+            <button class="btn btn-dark btn-hover" style="width: 100%;" onmouseover="speakButtonText(this)" onclick="redirectSignup()">If not already registered, Then click here to signup</button>
+        </a>
+    </form>
+    <br>
+    <script>
+        function speakButtonText(buttonElement) {
+            const buttonText = buttonElement.innerText;
+            const speech = new SpeechSynthesisUtterance(buttonText);
+            speechSynthesis.speak(speech);
+        }
 
+        // Add this function to speak error messages
+        function speakErrorMessage() {
+            const errorMessage = "Please provide your 10-digit registered mobile number only.";
+            const errorSpeech = new SpeechSynthesisUtterance(errorMessage);
+            speechSynthesis.speak(errorSpeech);
+        }
 
+        // Function to handle the redirection when the signup button is clicked
+        function redirectSignup() {
+            window.location.href = '{{ url_for("signup") }}';
+        }
+
+        // Modified function to remove spaces while the user speaks and enters the number
+        function startSpeechRecognition(inputElement) {
+            const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+
+            recognition.onresult = function (event) {
+                const result = event.results[0][0].transcript;
+                const formattedResult = result.replace(/\s/g, ''); // Remove spaces
+                inputElement.value = formattedResult;
+            };
+
+            recognition.onerror = function (event) {
+                console.error('Speech recognition error:', event.error);
+                recognition.stop();
+            };
+
+            recognition.onend = function () {
+                console.log('Speech recognition ended.');
+            };
+
+            recognition.start();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const speakNumberButton = document.getElementById('speakNumberButton');
+            const numberInput = document.getElementById('numberInput');
+            const signupButton = document.getElementById('signupButton');
+
+            speakNumberButton.addEventListener('click', function () {
+                startSpeechRecognition(numberInput);
+            });
+
+            // Trigger speech synthesis on hover
+            speakNumberButton.addEventListener('mouseover', function () {
+                speakButtonText(speakNumberButton);
+            });
+
+            // Add this function to validate and submit the form
+            window.validateAndSubmit = function () {
+                const numberInput = document.getElementById('numberInput');
+                const errorMessage = document.getElementById('error-message');
+
+                const phNumber = numberInput.value.replace(/\s/g, ''); // Remove spaces
+                if (!/^\d{10}$/.test(phNumber)) {
+                    errorMessage.innerText = "Please provide your 10-digit registered mobile number only.";
+                    speakErrorMessage();
+                    return;
+                }
+
+                // Submit the form (this will redirect to the /login route)
+                document.getElementById('loginForm').submit();
+            };
+
+            // Add this event listener to handle the redirection when the signup button is clicked
+            signupButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default behavior of the anchor tag
+                redirectSignup();
+            });
+        });
+    </script>
 </body>
+
 </html>

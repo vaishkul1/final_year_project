@@ -78,11 +78,17 @@ if __name__ == "__main__":
         current_date = datetime.date.today()
         speak(f"The date is {current_date}")
 
-    elif 'who is' in query:
-        human = query.replace('who is', " ")
+    elif 'who' in query:
+        human = query.replace('who', " ")
         info = wikipedia.summary(human, 2)
         print(info)
         speak(info)
+
+    elif 'what' in query:
+        human = query.replace('what', " ")
+        info = wikipedia.summary(human, 2)
+        print(info)
+        speak(info)    
 
     elif 'play' in query:
         song = query.replace('play', "")
