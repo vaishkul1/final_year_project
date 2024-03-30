@@ -1,9 +1,19 @@
-from flask import Flask, render_template, jsonify, request, redirect, flash, session, url_for
+from flask import (
+    Flask,
+    render_template,
+    jsonify,
+    request,
+    redirect,
+    flash,
+    session,
+    url_for,
+)
 from flask_pymongo import PyMongo
 import subprocess
 import os
 from functools import wraps
 import re
+
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/user"
@@ -24,7 +34,7 @@ def login_required(f):
     return decorated_function
 
 
-@app.route('/', methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
         print("it's a post call")
@@ -33,9 +43,9 @@ def signup():
         phnumber = request.form["phnumber"]
 
         # Validate that the phone number has exactly 10 digits
-        if not re.match(r'^\d{10}$', phnumber):
+        if not re.match(r"^\d{10}$", phnumber):
             flash("Invalid phone number. Please enter exactly 10 digits.", "danger")
-            return redirect(url_for('signup'))
+            return redirect(url_for("signup"))
 
         mongo.db.users.insert_one(
             {
@@ -46,10 +56,10 @@ def signup():
 
         flash("User registered successfully", "success")
 
-        return redirect(url_for('login'))
+        return redirect(url_for("login"))
 
     print("it's a get call")
-    return render_template('signup.html')
+    return render_template("signup.html")
 
 
 @app.route("/login/", methods=["GET", "POST"])
@@ -59,7 +69,10 @@ def login():
         found_user = mongo.db.users.find_one({"phnumber": phnumber})
 
         if not phnumber or not found_user:
-            return render_template("login.html", error_message="It seems that this number is not registered. Please check again.")
+            return render_template(
+                "login.html",
+                error_message="It seems that this number is not registered. Please check again.",
+            )
 
         session["is_user_logged_in"] = True
         session["name"] = found_user["name"]
@@ -70,22 +83,24 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/index/', methods=["GET", "POST"])
+@app.route("/index/", methods=["GET", "POST"])
 @login_required
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
 
-@app.route('/start-voice-assistant')
+@app.route("/start-voice-assistant")
 @login_required
 def start_voice_assistant():
     try:
-        # Assuming voice_assistant.py is in the same directory
-        script_path = os.path.join(os.path.dirname(__file__), 'voice_assistant.py')
-        subprocess.Popen(['python', script_path])
-        return jsonify({'status': 'success', 'message': 'Voice assistant started successfully'})
+
+        script_path = os.path.join(os.path.dirname(__file__), "voice_assistant.py")
+        subprocess.Popen(["python", script_path])
+        return jsonify(
+            {"status": "success", "message": "Voice assistant started successfully"}
+        )
     except Exception as e:
-        return jsonify({'status': 'error', 'message': str(e)})
+        return jsonify({"status": "error", "message": str(e)})
 
 
 @app.route("/logout")
@@ -95,6 +110,12 @@ def logout():
     return redirect(url_for("login"))
 
 
-if __name__ == '__main__':
+# @app.route("/trivia")  # Define a new route for the trivia game page
+# @login_required
+# def trivia():
+#     return render_template("trivia.html", trivia_questions=trivia_questions)
+
+
+if __name__ == "__main__":
     print(app.url_map)
     app.run(debug=True)

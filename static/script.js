@@ -70,3 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    var playTriviaButton = document.getElementById("play-trivia-button");
+
+    playTriviaButton.addEventListener("click", function () {
+        window.location.href = "/trivia"; // Redirect to the trivia game page
+    });
+});

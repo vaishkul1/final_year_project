@@ -10,25 +10,35 @@
 </head>
 
 <body>
-    <h1>Login</h1>
-    <hr>
-    <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+    <center>
+        <h1>Login</h1>
+
+    </center>
+    
+    <form id="loginForm" method="POST" action="{{ url_for('login') }}" style="padding-top: 2%;">
         <!-- Add an element to display error messages -->
         <div id="error-message">{{ error_message }}</div>
         <div class="main-div">
             <div class="d-grid gap-2">
-                <button type="button" class="btn btn-outline-info btn-block" id="speakNumberButton">Speak Your mobile number</button>
+                <button type="button" class="btn btn-block" id="speakNumberButton">
+                    <span style="background-color: #4167db; color: #fff; border-radius: 4px; padding: 0.375rem 0.75rem; border-radius: 30px;">Speak Your mobile number</span>
+                </button>
+                <!-- <button type="button" class="btn btn-outline-info btn-block" id="speakNumberButton" >Speak Your mobile number</button> -->
             </div>
-            <div>
-                <input type="text" name="phnumber" id="numberInput" placeholder="Your Mobile Number">
+            <div style="margin-left: 41%;">
+                <input type="text" name="phnumber" id="numberInput" placeholder="Your Mobile Number" size="32">
             </div>
         </div>
-        <div class="main-div d-grid gap-2">
-            <button type="button" class="btn btn-primary" onclick="validateAndSubmit()" onmouseover="speakButtonText(this)">Submit</button>
+        <div class="main-div d-grid gap-2"  >
+            <button type="button" class="btn"  onclick="validateAndSubmit()" onmouseover="speakButtonText(this)">
+                <span style="background-color: #4167db; color: #fff; border-radius: 4px; padding: 0.375rem 0.75rem;">Submit</span></button>
         </div>
-        <a id="signupButton" href="{{ url_for('signup') }}">
-            <button class="btn btn-dark btn-hover" style="width: 100%;" onmouseover="speakButtonText(this)" onclick="redirectSignup()">If not already registered, Then click here to signup</button>
-        </a>
+        <div style="margin-top: 200px;">
+            <a id="signupButton" href="{{ url_for('signup') }}">
+                <button class="btn btn-dark btn-hover" style="width: 100%;" onmouseover="speakButtonText(this)" onclick="redirectSignup()">If not already registered, Then click here to signup</button>
+            </a>
+        </div>
+        
     </form>
     <br>
     <script>

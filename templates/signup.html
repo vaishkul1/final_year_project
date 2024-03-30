@@ -10,29 +10,42 @@
 </head>
 
 <body>
-    <h1>Sign Up</h1>
+    <div>
+        <center><h1>Welcome to AuraSpeak!</h1>
+            <h2>Please Sign Up</h2> </center>
+
+    </div>
+    
+    
 
     <form id="signupForm" action="{{ url_for('signup') }}" method="post">
         <div class="main-div">
             <div class="d-grid gap-2">
-                <button type="button" class="btn btn-outline-info btn-block" id="speakNameButton">Speak Your Name</button>
+                <button type="button" class="btn btn-block" id="speakNameButton">
+                    <span style="background-color: #4167db; color: #fff; border-radius: 4px; padding: 0.375rem 0.75rem; border-radius: 30px;">Speak Your Name</span>
+                </button>
             </div>
-            <div>
+            <div style="margin-left: 44%;">
                 <input type="text" name="name" id="nameInput" placeholder="Your Name">
             </div>
         </div>
         <div class="main-div">
             <div class="d-grid gap-2">
-                <button type="button" class="btn btn-outline-info btn-block" id="speakNumberButton">Speak Your mobile number</button>
+                <button type="button" class="btn btn-block" id="speakNumberButton">
+                    <span style="background-color: #4167db; color: #fff; border-radius: 4px; padding: 0.375rem 0.75rem; border-radius: 30px;">Speak Your mobile number</span>
+                </button>
             </div>
-            <div>
-                <input type="text" name="phnumber" id="numberInput" placeholder="Your Mobile Number">
+            <div style="margin-left: 41%;">
+                <input type="text" name="phnumber" id="numberInput" placeholder="Your Mobile Number" size="32">
             </div>
         </div>
-        <div class="d-grid gap-2 main-div">
-            <button type="submit" id="submitButton" class="btn btn-info">Submit</button>
+        <div class="d-grid gap-2" style="margin-bottom: 34px ;" >
+            <button type="submit" class="btn btn-block" id="submitButton">
+                <span style="background-color: #4167db; color: #fff; border-radius: 4px; padding: 0.375rem 0.75rem; margin-bottom: 5px;">Submit</span>
+            </button>
+            <!-- <button type="submit" id="submitButton" class="btn btn-info" style="background-color: #3498db;">Submit</button> -->
         </div>
-        <div class="d-grid gap-2">
+        <div class="d-grid gap-2" style="margin-top: 50px;">
             <a id="loginButton" href="{{ url_for('login') }}">
                 <button class="btn btn-dark btn-hover" style="width: 100%;">If already Signed Up, Then click here to login</button>
             </a>

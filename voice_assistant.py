@@ -8,6 +8,12 @@ import os
 import smtplib
 import pyjokes
 import pywhatkit
+# from newsapi import NewsApiClient
+# import pyowm 
+
+    
+# newsapi = NewsApiClient(api_key='b8a263fc824049a692f4aed478f1bd96')
+# owm = pyowm.OWM('ea1c27935c886d9b6b465e2f23a44b0c')
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -53,6 +59,38 @@ def sendEmail(to, content):
     server.sendmail('tomail@gmail.com', to, content)
     server.close()
 
+
+
+# def get_latest_news():
+#     try:
+#         top_headlines = newsapi.get_top_headlines(language=('en','hi','mar'),country='ind')
+#         articles = top_headlines['articles']
+#         speak("Here are the latest news headlines.")
+#         for idx, article in enumerate(articles, start=1):
+#             title = article['title']
+#             descripton = article['description']
+#             print(f"Headline {idx}: {title}")
+#             print(f"Description: {descripton}")
+#             speak(f"Headline {idx}: {title}")
+#             speak(f"Description: {descripton}")
+#     except newsapi.exceptions.NewsAPIException as e:
+#         speak(f"Sorry, there was an issue fetching the news: {str(e)}")
+#     except Exception as e:
+#         speak(f"An unexpected error occurred: {str(e)}")
+
+# def get_weather(location):
+#     try:
+#         observation = owm.weather_at_place(location)
+#         weather = observation.get_weather()
+#         temperature = weather.get_temperature()
+#         status = weather.get_status()
+#         return  f"The weather in {location} is {status} with a temperature of {temperature} degree Celsius"
+#     except pyowm.exceptions.api_response_error.NotFoundError:
+#         return "Sorry, the city name was not found"
+#     except Exception as e:
+#         return f"An error occurred: {str(e)}"
+
+
 if __name__ == "__main__":
     wishMe()
     query = takeCommand().lower()
@@ -97,5 +135,16 @@ if __name__ == "__main__":
 
     elif 'joke' in query:
         speak(pyjokes.get_joke())
+
+    # elif 'news' in query:
+    #     get_latest_news()
+
+
+    # elif 'weather' in query:
+    #     speak("Sure, please specify the city name.")
+    #     city = takeCommand().lower()
+    #     weather_info = get_weather(city)
+    #     speak(weather_info)
+    #     print(weather_info)
 
 
